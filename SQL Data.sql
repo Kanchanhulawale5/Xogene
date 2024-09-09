@@ -1,3 +1,8 @@
+CREATE DATABASE drugs;
+
+-- Select the database
+USE drugs;
+
 CREATE TABLE drugs (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
