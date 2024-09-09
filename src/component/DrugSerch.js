@@ -1,72 +1,78 @@
-// SearchBar.js
-import React, { useState, useEffect } from 'react';
+// DrugSearch.js
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './App.css'; // Import CSS
 
-const SearchBar = () => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+const DrugSearch = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [drugs, setDrugs] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (query) {
-      setLoading(true);
-      axios.get(`http://localhost:3000/drugs?name=${query}`)
-        .then(response => {
-          console.log('API Response:', response.data); // Debugging log
-          setResults(response.data);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching drugs:', error);
-          setError('Failed to fetch drugs.');
-          setLoading(false);
-        });
-    } else {
-      setResults([]);
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/drugs?name=${searchTerm}`);
+      setDrugs(response.data);
+      setError('');
+    } catch (err) {
+      setError('Error fetching drugs');
+      console.error(err);
     }
-  }, [query]);
+  };
 
-  const handleSelect = (drugName) => {
-    navigate(`/drugs/${drugName}`); // Navigate to drug details page
+  const handleDrugClick = (drugName) => {
+    navigate(`/drugs/${encodeURIComponent(drugName)}`);
   };
 
   return (
-    <div className="search-container">
+    <div style={styles.container}>
+      <h1>Drug Search</h1>
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search by drug name"
-        className="search-input"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Enter drug name"
+        style={styles.input}
       />
-      <button onClick={() => setQuery(query)} className="search-button">
-        🔍
-      </button>
-
-      {loading && <div>Loading...</div>}
-
-      {results.length > 0 ? (
-        <div>
-          <h3>Search Results:</h3>
-          <ul className="search-results">
-            {results.map((drug, index) => (
-              <li key={index} onClick={() => handleSelect(drug.name)}>
-                {`Drug ${index + 1}: ${drug.name}`}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        query && !loading && <div>No results found.</div>
-      )}
-
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <button onClick={handleSearch} style={styles.button}>Search</button>
+      {error && <p style={styles.error}>{error}</p>}
+      <ul>
+        {drugs.map(drug => (
+          <li key={drug.id} onClick={() => handleDrugClick(drug.name)} style={styles.drugItem}>
+            {drug.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default SearchBar;
+const styles = {
+  container: {
+    textAlign: 'center',
+    margin: '20px',
+  },
+  input: {
+    padding: '10px',
+    margin: '10px',
+    width: '300px',
+  },
+  button: {
+    padding: '10px',
+    margin: '10px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  error: {
+    color: 'red',
+  },
+  drugItem: {
+    cursor: 'pointer',
+    padding: '10px',
+    borderBottom: '1px solid #ddd',
+  }
+};
+
+export default DrugSearch;
