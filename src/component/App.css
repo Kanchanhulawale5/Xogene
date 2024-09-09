@@ -1,0 +1,117 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* App.css */
+
+/* App.css */
+
+/* Full-width navbar */
+.navbar {
+  background-color: #f8f9fa; /* Light background color */
+  padding: 0; /* Remove padding to make it full width */
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visual effect */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  height: 40px; /* Adjust logo size */
+  margin-right: 10px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.form-control {
+  border-radius: 0; /* Remove rounded corners */
+}
+
+.dropdown-menu {
+  max-height: 300px; /* Set a max height for dropdown */
+  overflow-y: auto; /* Add scroll if needed */
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-outline-success {
+  border: 1px solid #28a745; /* Green border */
+  color: #28a745; /* Green text */
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745; /* Green background on hover */
+  color: white; /* White text on hover */
+}
+
+.search-container {
+  margin: 0 auto;
+}
+
+.search-results {
+  list-style-type: none;
+  padding: 0;
+}
+
+.search-results li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  background-color: #f1f1f1;
+}
+
+.drug-detail {
+  padding: 20px;
+}
+.search-container{
+  margin-left:50%;
+}
